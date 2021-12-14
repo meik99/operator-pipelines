@@ -45,6 +45,8 @@ spec:
     - name: prepare-docker-config
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.output.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: DOCKERCONFIG
           value: $(workspaces.output.path)/preflight-docker-config.json
@@ -67,6 +69,8 @@ spec:
     - name: check-operator
       image: $(params.base_image)
       workingDir: $(workspaces.output.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: PFLT_INDEXIMAGE
           value: $(params.bundle_index_image)
@@ -101,6 +105,8 @@ spec:
     - name: verify-results
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.output.path)
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -ex -o pipefail

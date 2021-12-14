@@ -21,6 +21,8 @@ spec:
     - name: get-organization
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -xe -o pipefail

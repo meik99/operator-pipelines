@@ -40,6 +40,8 @@ spec:
     - name: open-pull-request
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: GITHUB_TOKEN
           valueFrom:

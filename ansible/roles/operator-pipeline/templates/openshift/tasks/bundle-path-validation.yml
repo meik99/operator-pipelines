@@ -3,7 +3,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: bundle-path-validation
-spec:
+spec:  
   params:
     - name: pipeline_image
     - name: bundle_path
@@ -19,6 +19,8 @@ spec:
     - name: bundle-parse
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -xe

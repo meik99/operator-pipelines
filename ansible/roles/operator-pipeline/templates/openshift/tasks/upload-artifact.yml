@@ -44,6 +44,8 @@ spec:
     - name: upload-test-logs
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: PYXIS_CERT_PATH
           value: $(params.pyxis_cert_path)
@@ -85,6 +87,8 @@ spec:
     - name: upload-test-results
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: PYXIS_CERT_PATH
           value: $(params.pyxis_cert_path)
@@ -131,6 +135,8 @@ spec:
     - name: upload-test-artifacts
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       env:
         - name: PYXIS_CERT_PATH
           value: $(params.pyxis_cert_path)

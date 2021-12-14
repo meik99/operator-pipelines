@@ -25,6 +25,8 @@ spec:
     - name: lint-yaml-files
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.shared-workspace.path)
+      securityContext: 
+        runAsUser: 0
       command:
         - yamllint
       args:

@@ -37,6 +37,8 @@ spec:
   steps:
     - name: get-pipeline-logs
       image: registry.redhat.io/openshift-pipelines/pipelines-cli-tkn-rhel8@sha256:cc8bbdb079578605a66447529d7de76f32882dc2ada571e39ff18e483cdbdf49
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -xe
@@ -47,6 +49,8 @@ spec:
 
     - name: upload-pipeline-logs
       image: "$(params.pipeline_image)"
+      securityContext: 
+        runAsUser: 0
       env:
         - name: PYXIS_CERT_PATH
           value: $(params.pyxis_cert_path)

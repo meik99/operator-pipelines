@@ -17,6 +17,8 @@ spec:
     - name: certification-project-check
       image: "$(params.pipeline_image)"
       workingDir: $(workspaces.source.path)
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         echo "Checking availability of cert project identifier"

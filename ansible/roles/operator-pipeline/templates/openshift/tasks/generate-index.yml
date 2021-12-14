@@ -24,7 +24,9 @@ spec:
   steps:
     - name: generate
       image: "$(params.pipeline_image)"
-      workingDir: $(workspaces.output.path)
+      workingDir: $(workspaces.output.path)      
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -xe

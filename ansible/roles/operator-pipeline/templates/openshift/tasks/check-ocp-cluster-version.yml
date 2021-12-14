@@ -13,6 +13,8 @@ spec:
   steps:
     - name: check-ocp-cluster-version
       image: "$(params.pipeline_image)"
+      securityContext: 
+        runAsUser: 0
       script: |
         #! /usr/bin/env bash
         set -xe
