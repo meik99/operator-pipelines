@@ -1,7 +1,9 @@
 name: Build and Push ppc64le Image
 on:  # yamllint disable-line rule:truthy
-  - push
-  - pull_request
+  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -21,7 +23,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           image: operator-pipelines-images
-          tags: ppc64le ${{ github.sha }}
+          tags: ppc64le-${{ github.sha }}
           archs: ppc64le
           dockerfiles: |
             ./operator-pipeline-images/Dockerfile-ppc64le
