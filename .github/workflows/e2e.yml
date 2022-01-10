@@ -7,7 +7,7 @@ name: E2E-CI
 on:  # yamllint disable-line rule:truthy
   workflow_run:
     workflows:
-      - validation
+      - Build
     branches:
       - main
     types:
@@ -139,17 +139,20 @@ jobs:
         run: |
           oc new-project $OC_PROJECT
           pushd ansible
-          bash init-custom-env.sh $OC_PROJECT stage vault-password
+          bash init-custom-env.sh $OC_PROJECT stage vault-password ${{ github.sha }}
           popd
 
       - name: Run CI pipeline
         run: |
+          # Change submit=true after ISV-1503
           tkn pipeline start operator-ci-pipeline \
             --use-param-defaults \
             --param git_repo_url=git@github.com:redhat-openshift-ecosystem/operator-pipelines-test.git \
+            --param upstream_repo_name=redhat-openshift-ecosystem/operator-pipelines-test \
             --param git_branch=$SHORT_SHA \
             --param bundle_path=operators/test-e2e-operator/0.0.7-$SHORT_SHA \
             --param env=stage \
+            --param submit=false \
             --workspace name=pipeline,volumeClaimTemplateFile=templates/workspace-template.yml \
             --workspace name=kubeconfig,secret=kubeconfig \
             --workspace name=ssh-dir,secret=github-ssh-credentials \
