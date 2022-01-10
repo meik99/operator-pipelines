@@ -27,7 +27,7 @@ spec:
       description: Path to the directory to use as context.
       name: CONTEXT
       type: string
-    - default: "true"
+    - default: "false"
       description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS
         registry)
       name: TLSVERIFY
